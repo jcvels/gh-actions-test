@@ -1,0 +1,37 @@
+name: Action on push to the main/master branch
+run-name: Deploy to production
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+
+  cancel:
+    runs-on: ubuntu-lastest
+    steps:
+        - name: Cancel any previous workflow still running
+          uses: styfle/cancel-workflow-action
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Run unit test
+      uses: tsickert/discord-webhook@v5.3.0
+      with:
+          webhook-url: ${{secrets.DISCORD_WEBHOOK_URL}}
+          content: "Unit test in ${{ github.repository }} has been finished with result: ${{ github.action_status }}"
+
+  deploy:
+    needs: 
+      - cancel
+      - test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        uses: tsickert/discord-webhook@v5.3.0
+        with:
+          webhook-url: ${{secrets.DISCORD_WEBHOOK_URL}}
+          content: "A new DEPLOY TO PRODUCTION request has been sent to server from ${{ github.repository }}"
