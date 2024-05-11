@@ -35,4 +35,3 @@ jobs:
         with:
           webhook-url: ${{secrets.DISCORD_WEBHOOK_URL}}
           content: "A new DEPLOY TO PRODUCTION request has been sent to server from ${{ github.repository }}"
-
