@@ -9,7 +9,7 @@ on:
 
 jobs:
   start-deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - name: Show a message
         run: echo "Sending deployment start order..."
