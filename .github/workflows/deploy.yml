@@ -1,5 +1,4 @@
-name: Action on push to the main/master branch
-run-name: Deploy to production
+name: Deploy to production
 
 on:
   push:
@@ -27,4 +26,15 @@ jobs:
         uses: tsickert/discord-webhook@v5.3.0
         with:
           webhook-url: ${{secrets.DISCORD_WEBHOOK_URL}}
-          content: "A new DEPLOY TO PRODUCTION request has been sent to server from **${{ github.repository }}** repository"
+          content: "--- deploy webhook post ---"
+
+  notify:
+    needs: 
+      - deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        uses: tsickert/discord-webhook@v5.3.0
+        with:
+          webhook-url: ${{secrets.DISCORD_WEBHOOK_URL}}
+          content: "A new **deploy-to-production** request has been sent to server from **${{ github.repository }}** repository"
