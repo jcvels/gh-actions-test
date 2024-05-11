@@ -18,3 +18,4 @@ jobs:
             with:
                 webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
                 content: "Unit test in ${{ github.repository }} has been finished with result: ${{ github.action_status }}"
+
