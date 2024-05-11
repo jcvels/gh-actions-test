@@ -1,0 +1,18 @@
+name: Action on push to the main branch
+run-name: ${{ github.actor }} pushing changes to main branch
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  start-deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Show a message
+        run: echo "Sending deployment start order..."
+      - name: Webhook post
+        run: |
+          curl --header "Content-Type: application/json" --request POST --data '{"username":"xyz","password":"xyz"}' https://discord.com/api/webhooks/1238679291806613565/JmFafJrl98lF7HCgejqTympaBerDw4d8izyHMVHLrw62sJIinClCvdfjGcEYm2rVrSWX
