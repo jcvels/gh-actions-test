@@ -11,8 +11,8 @@ jobs:
   start-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Show a message
-        run: echo "Sending deployment start order..."
-      - name: Webhook post
-        run: |
-          curl --header "Content-Type: application/json" --request POST --data '{"content":"Sent from GitHub Actions"}' https://discord.com/api/webhooks/1238679291806613565/JmFafJrl98lF7HCgejqTympaBerDw4d8izyHMVHLrw62sJIinClCvdfjGcEYm2rVrSWX
+      - name: Notifi to Discord channel
+        uses: tsickert/discord-webhook@v5.3.0
+        with:
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          content: "Sent from GitHub Actions using secrets"
