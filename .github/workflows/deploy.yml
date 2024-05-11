@@ -11,11 +11,26 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - name: Run unit test
-      uses: tsickert/discord-webhook@v5.3.0
-      with:
-          webhook-url: ${{secrets.DISCORD_WEBHOOK_URL}}
-          content: "Unit test in ${{ github.repository }} has been finished with result: ${{ github.action_status }}"
+      - name: Some step for testing
+        id: dummytest
+        run: echo Hello world!
+      - name: Run unit test
+        uses: tsickert/discord-webhook@v5.3.0
+        with:
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          content: "[ **${{ github.repository }}** ] unit tests finished with result: ${{ steps.dummytest.outcome }}"
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Some step for testing
+        id: dummytest2
+        run: echo Hello world!
+      - name: Run unit test
+        uses: tsickert/discord-webhook@v5.3.0
+        with:
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          content: "[ **${{ github.repository }}** ] end-to-end tests finished with result: ${{ steps.dummytest2.outcome }}"
 
   deploy:
     needs: 
