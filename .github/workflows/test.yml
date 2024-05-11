@@ -2,11 +2,12 @@ name: Action on push to any branch
 run-name: Run test to last commited changes on ${{ github.base_ref }} branch
 
 on:
-  push:
+  pull_request:
     branches:
-      - '**'
-      - '!master'
-      - '!main'
+      - main
+      - master
+    types:
+      - opened
 
 jobs:
 
