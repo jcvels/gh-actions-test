@@ -8,10 +8,18 @@ on:
       - master
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run unit test
+        uses: tsickert/discord-webhook@v5.3.0
+        with:
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          content: "Unit Test: PASS"
   start-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Notifi to Discord channel
+      - name: Notify to Discord channel
         uses: tsickert/discord-webhook@v5.3.0
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
