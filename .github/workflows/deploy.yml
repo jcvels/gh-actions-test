@@ -36,13 +36,14 @@ jobs:
   deploy:
     needs: 
       - test
+      - e2e
     runs-on: ubuntu-latest
     steps:
       - name: Deploy
         uses: tsickert/discord-webhook@v5.3.0
         with:
           webhook-url: ${{secrets.DISCORD_WEBHOOK_URL}}
-          content: "--- deploy webhook post ---"
+          content: "[ **${{ github.repository }}** ] deploy webhook post"
 
   notify:
     needs: 
